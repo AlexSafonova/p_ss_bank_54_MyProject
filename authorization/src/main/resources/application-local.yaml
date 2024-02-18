@@ -14,8 +14,8 @@ management:
         include: '*'
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: user
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
     password: password
   liquibase:
     default-schema: authorization
@@ -23,4 +23,11 @@ spring:
     enabled: true
     drop-first: false
   application:
-    name: authorization-app
+    name: auth
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 30
