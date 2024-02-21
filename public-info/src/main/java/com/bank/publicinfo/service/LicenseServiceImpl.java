@@ -1,6 +1,9 @@
 package com.bank.publicinfo.service;
 
+import com.bank.publicinfo.dto.CertificateDto;
 import com.bank.publicinfo.dto.LicenseDto;
+import com.bank.publicinfo.entity.Certificate;
+import com.bank.publicinfo.entity.License;
 import com.bank.publicinfo.mapper.LicenseMapper;
 import com.bank.publicinfo.repository.LicenseRepository;
 import com.bank.publicinfo.validation.LicenseValidation;
@@ -27,14 +30,14 @@ public class LicenseServiceImpl implements LicenseService {
     }
 
     public LicenseDto addLicense(LicenseDto licenseDto) {
-        return licenseMapper.toLicenseDto(licenseRepository.save
-                (licenseValidation.createLicenseValidator(licenseMapper.toLicense(licenseDto))));
+        License license = validateAndCreateLicense(licenseDto);
+        return licenseMapper.toLicenseDto(licenseRepository.save(license));
     }
 
     public LicenseDto updateLicense(Long id, LicenseDto licenseDto) {
         licenseValidation.findLicenseValidator(id);
-        return licenseMapper.toLicenseDto(licenseRepository.save
-                (licenseValidation.createLicenseValidator(licenseMapper.toLicense(licenseDto))));
+        License license = validateAndCreateLicense(licenseDto);
+        return licenseMapper.toLicenseDto(licenseRepository.save(license));
     }
 
     public void deleteLicense(Long id) {
@@ -43,5 +46,8 @@ public class LicenseServiceImpl implements LicenseService {
 
     public List<LicenseDto> getAllLicenseByBank_detailsId(Long bank_details_id) {
         return licenseMapper.toListLicenseDto(licenseRepository.findAllLicenseByBankDetailsId(bank_details_id));
+    }
+    private License validateAndCreateLicense(LicenseDto licenseDto) {
+        return licenseValidation.createLicenseValidator(licenseMapper.toLicense(licenseDto));
     }
 }

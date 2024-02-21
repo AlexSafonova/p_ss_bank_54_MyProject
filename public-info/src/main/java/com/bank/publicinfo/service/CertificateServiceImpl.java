@@ -1,6 +1,9 @@
 package com.bank.publicinfo.service;
 
+import com.bank.publicinfo.dto.BranchDto;
 import com.bank.publicinfo.dto.CertificateDto;
+import com.bank.publicinfo.entity.Branch;
+import com.bank.publicinfo.entity.Certificate;
 import com.bank.publicinfo.mapper.CertificateMapper;
 import com.bank.publicinfo.repository.CertificateRepository;
 import com.bank.publicinfo.validation.CertificateValidation;
@@ -27,14 +30,14 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     public CertificateDto addCertificate(CertificateDto certificateDto) {
-        return certificateMapper.toCertificateDto(certificateRepository.save
-                (certificateValidation.createCertificateValidator(certificateMapper.toCertificate(certificateDto))));
+        Certificate certificate = validateAndCreateCertificate(certificateDto);
+        return certificateMapper.toCertificateDto(certificateRepository.save(certificate));
     }
 
     public CertificateDto updateCertificate(Long id, CertificateDto certificateDto) {
         certificateValidation.findCertificateValidator(id);
-        return certificateMapper.toCertificateDto(certificateRepository.save
-                (certificateValidation.createCertificateValidator(certificateMapper.toCertificate(certificateDto))));
+        Certificate certificate = validateAndCreateCertificate(certificateDto);
+        return certificateMapper.toCertificateDto(certificateRepository.save(certificate));
     }
 
     public void deleteCertificate(Long id) {
@@ -43,5 +46,8 @@ public class CertificateServiceImpl implements CertificateService {
 
     public List<CertificateDto> getAllCertificatesByBank_detailsId(Long bank_details_id) {
         return certificateMapper.toListCertificateDto(certificateRepository.findAllCertificatesByBankDetailsId(bank_details_id));
+    }
+    private Certificate validateAndCreateCertificate(CertificateDto certificateDto) {
+        return certificateValidation.createCertificateValidator(certificateMapper.toCertificate(certificateDto));
     }
 }

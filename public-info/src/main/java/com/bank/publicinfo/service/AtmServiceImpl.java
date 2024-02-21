@@ -1,11 +1,11 @@
 package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.dto.AtmDto;
+import com.bank.publicinfo.entity.Atm;
 import com.bank.publicinfo.mapper.AtmMapper;
 import com.bank.publicinfo.repository.AtmRepository;
 import com.bank.publicinfo.validation.AtmValidation;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +25,14 @@ public class AtmServiceImpl implements AtmService {
     }
 
     public AtmDto addAtm(AtmDto atmDto) {
-
-        return atmMapper.toDto(atmRepository.save(atmValidation.createAtmValidator(atmMapper.toAtm(atmDto))));
+        Atm atm = validateAndCreateAtm(atmDto);
+        return atmMapper.toDto(atmRepository.save(atm));
     }
 
     public AtmDto updateAtm(Long id, AtmDto atmDto) {
         atmValidation.findAtmValidator(id);
-        atmValidation.createAtmValidator(atmMapper.toAtm(atmDto));
-        return atmMapper.toDto(atmRepository.save(atmMapper.toAtm(atmDto)));
+        Atm atm = validateAndCreateAtm(atmDto);
+        return atmMapper.toDto(atmRepository.save(atm));
     }
 
     public AtmDto findAtmById(Long id) {
@@ -42,5 +42,8 @@ public class AtmServiceImpl implements AtmService {
 
     public void deleteAtm(Long id) {
         atmRepository.delete(atmValidation.findAtmValidator(id));
+    }
+    private Atm validateAndCreateAtm(AtmDto atmDto) {
+        return atmValidation.createAtmValidator(atmMapper.toAtm(atmDto));
     }
 }

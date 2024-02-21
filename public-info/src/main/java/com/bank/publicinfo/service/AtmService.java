@@ -16,8 +16,6 @@ public interface AtmService {
 
     AtmDto findAtmById(Long id);
 
-  //  List<AtmDto> getAllAtmDtoByBranch_id(Long brunch_id);
-
     void deleteAtm(Long id);
 }
 

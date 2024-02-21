@@ -1,6 +1,9 @@
 package com.bank.publicinfo.service;
 
+import com.bank.publicinfo.dto.Bank_detailsDto;
 import com.bank.publicinfo.dto.BranchDto;
+import com.bank.publicinfo.entity.Bank_details;
+import com.bank.publicinfo.entity.Branch;
 import com.bank.publicinfo.mapper.BranchMapper;
 import com.bank.publicinfo.repository.BranchRepository;
 import com.bank.publicinfo.validation.BranchValidation;
@@ -27,18 +30,21 @@ public class BranchServiceImpl implements BranchService {
     }
 
     public BranchDto addBranch(BranchDto branchDto) {
-        return branchMapper.toBranchDto(branchRepository.save
-                (branchValidation.createBranchValidator(branchMapper.toBranch(branchDto))));
+        Branch branch = validateAndCreateBranch(branchDto);
+        return branchMapper.toBranchDto(branchRepository.save(branch));
     }
 
     public BranchDto updateBranch(Long id, BranchDto branchDto) {
         branchValidation.findBranchValidator(id);
-        return branchMapper.toBranchDto(branchRepository.save
-                (branchValidation.createBranchValidator(branchMapper.toBranch(branchDto))));
+        Branch branch = validateAndCreateBranch(branchDto);
+        return branchMapper.toBranchDto(branchRepository.save(branch));
     }
 
     public void deleteBranch(Long id) {
         branchRepository.delete(branchValidation.findBranchValidator(id));
     }
 
+    private Branch validateAndCreateBranch(BranchDto branchDto) {
+        return branchValidation.createBranchValidator(branchMapper.toBranch(branchDto));
+    }
 }

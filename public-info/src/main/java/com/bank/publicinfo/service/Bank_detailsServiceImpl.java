@@ -1,6 +1,7 @@
 package com.bank.publicinfo.service;
 
 import com.bank.publicinfo.dto.Bank_detailsDto;
+import com.bank.publicinfo.entity.Bank_details;
 import com.bank.publicinfo.mapper.Bank_detailsMapper;
 import com.bank.publicinfo.repository.Bank_detailsRepository;
 import com.bank.publicinfo.validation.BankDetailsValidation;
@@ -29,17 +30,21 @@ public class Bank_detailsServiceImpl implements Bank_detailsService {
     }
 
     public Bank_detailsDto addBank_details(Bank_detailsDto bankDetailsDto) {
-        return bankDetailsMapper.toBank_detailsDto(bankDetailsRepository.save
-                (bankDetailsValidation.createBankDetailsValidator(bankDetailsMapper.toBank_details(bankDetailsDto))));
+        Bank_details bankDetails = validateAndCreateBank_details(bankDetailsDto);
+        return bankDetailsMapper.toBank_detailsDto(bankDetailsRepository.save(bankDetails));
     }
 
     public Bank_detailsDto updateBank_details(Long id, Bank_detailsDto bankDetailsDto) {
         bankDetailsValidation.findBankDetailsValidator(id);
-        return bankDetailsMapper.toBank_detailsDto(bankDetailsRepository.save
-                (bankDetailsValidation.createBankDetailsValidator(bankDetailsMapper.toBank_details(bankDetailsDto))));
+        Bank_details bankDetails = validateAndCreateBank_details(bankDetailsDto);
+        return bankDetailsMapper.toBank_detailsDto(bankDetailsRepository.save(bankDetails));
     }
 
     public void deleteBank_details(Long id) {
         bankDetailsRepository.delete(bankDetailsValidation.findBankDetailsValidator(id));
+    }
+
+    private Bank_details validateAndCreateBank_details(Bank_detailsDto bankDetailsDto) {
+        return bankDetailsValidation.createBankDetailsValidator(bankDetailsMapper.toBank_details(bankDetailsDto));
     }
 }
