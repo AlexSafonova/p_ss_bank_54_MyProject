@@ -11,26 +11,25 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class BankDetailsValidation {
     private final Bank_detailsRepository bankDetailsRepository;
-    public Bank_details createBankDetailsValidator (Bank_details bankDetails) {
-        if (!bankDetails.getCity().isBlank()
+
+    public Bank_details createBankDetailsValidator(Bank_details bankDetails) {
+        if (bankDetails != null && !bankDetails.getCity().isBlank()
                 && !bankDetails.getJoint_stock_company().isBlank()
                 && !bankDetails.getName().isBlank()
-                && bankDetails.getBik().describeConstable().isPresent()
                 && bankDetails.getCor_account() != null
                 && bankDetails.getInn() != null
                 && bankDetails.getKpp() != null
                 && bankDetails.getBik() != null) {
             return bankDetails;
-        }
-        else {
-            throw new ValidatorException("Empty fields in bank_details");
+        } else {
+            throw new ValidatorException("Empty Bank_details or fields in bank_details");
         }
     }
-    public Bank_details findBankDetailsValidator (Long id) {
-        if(bankDetailsRepository.findById(id).isPresent()) {
+
+    public Bank_details findBankDetailsValidator(Long id) {
+        if (bankDetailsRepository.findById(id).isPresent()) {
             return bankDetailsRepository.findById(id).get();
-        }
-        else {
+        } else {
             throw new NotFoundException("Bank_details " + id + " not found");
         }
     }

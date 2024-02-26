@@ -1,5 +1,6 @@
 package com.bank.publicinfo.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "license",schema = "public_bank_information")
+@AllArgsConstructor
+@Table(name = "license", schema = "public_bank_information")
 public class License {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

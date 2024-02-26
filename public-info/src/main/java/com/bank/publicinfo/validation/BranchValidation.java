@@ -13,14 +13,14 @@ public class BranchValidation {
     private final BranchRepository branchRepository;
 
     public Branch createBranchValidator(Branch branch) {
-        if (!branch.getCity().isBlank()
+        if (branch != null && !branch.getCity().isBlank()
                 && !branch.getAddress().isBlank()
                 && branch.getEnd_of_work() != null
                 && branch.getStart_of_work() != null
                 && branch.getPhone_number() != null) {
             return branch;
         } else {
-            throw new ValidatorException("Empty fields in branch");
+            throw new ValidatorException("Empty Branch or fields in branch");
         }
     }
 

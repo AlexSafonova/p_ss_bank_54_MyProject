@@ -1,8 +1,6 @@
 package com.bank.publicinfo.service;
 
-import com.bank.publicinfo.dto.Bank_detailsDto;
 import com.bank.publicinfo.dto.BranchDto;
-import com.bank.publicinfo.entity.Bank_details;
 import com.bank.publicinfo.entity.Branch;
 import com.bank.publicinfo.mapper.BranchMapper;
 import com.bank.publicinfo.repository.BranchRepository;

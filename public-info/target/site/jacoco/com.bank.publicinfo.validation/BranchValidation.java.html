@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BranchValidation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">public-info</a> &gt; <a href="index.source.html" class="el_package">com.bank.publicinfo.validation</a> &gt; <span class="el_source">BranchValidation.java</span></div><h1>BranchValidation.java</h1><pre class="source lang-java linenums">package com.bank.publicinfo.validation;
+
+import com.bank.publicinfo.entity.Branch;
+import com.bank.publicinfo.exception.NotFoundException;
+import com.bank.publicinfo.exception.ValidatorException;
+import com.bank.publicinfo.repository.BranchRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="fc" id="L11">@AllArgsConstructor</span>
+public class BranchValidation {
+    private final BranchRepository branchRepository;
+
+    public Branch createBranchValidator(Branch branch) {
+<span class="fc bfc" id="L16" title="All 4 branches covered.">        if (branch != null &amp;&amp; !branch.getCity().isBlank()</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">                &amp;&amp; !branch.getAddress().isBlank()</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">                &amp;&amp; branch.getEnd_of_work() != null</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">                &amp;&amp; branch.getStart_of_work() != null</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">                &amp;&amp; branch.getPhone_number() != null) {</span>
+<span class="fc" id="L21">            return branch;</span>
+        } else {
+<span class="fc" id="L23">            throw new ValidatorException(&quot;Empty Branch or fields in branch&quot;);</span>
+        }
+    }
+
+    public Branch findBranchValidator(Long id) {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (branchRepository.findById(id).isPresent()) {</span>
+<span class="fc" id="L29">            return branchRepository.findById(id).get();</span>
+        } else {
+<span class="fc" id="L31">            throw new NotFoundException(&quot;Branch &quot; + id + &quot; not found&quot;);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

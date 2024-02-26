@@ -13,10 +13,10 @@ public class LicenseValidation {
     private final LicenseRepository licenseRepository;
 
     public License createLicenseValidator(License license) {
-        if (license.getPhoto() != null) {
+        if (license != null && license.getPhoto() != null) {
             return license;
         } else {
-            throw new ValidatorException("Empty fields in license");
+            throw new ValidatorException("Empty License or fields in license");
         }
     }
 

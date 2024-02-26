@@ -1,8 +1,7 @@
 package com.bank.publicinfo.handler;
 
 import com.bank.publicinfo.exception.NotFoundException;
-import io.micrometer.core.instrument.config.validate.ValidationException;
-import lombok.extern.log4j.Log4j2;
+import com.bank.publicinfo.exception.ValidatorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ public class ExcHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<HandlerResponse> handleValidation(ValidationException e) {
+    public ResponseEntity<HandlerResponse> handleValidation(ValidatorException e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(new HandlerResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }

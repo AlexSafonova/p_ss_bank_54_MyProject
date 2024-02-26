@@ -13,10 +13,10 @@ public class CertificateValidation {
     private final CertificateRepository certificateRepository;
 
     public Certificate createCertificateValidator(Certificate certificate) {
-        if (certificate.getPhoto() != null) {
+        if (certificate != null && certificate.getPhoto() != null) {
             return certificate;
         } else {
-            throw new ValidatorException("Empty fields in certificate");
+            throw new ValidatorException("Empty Certificate or fields in certificate");
         }
     }
 

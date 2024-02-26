@@ -19,12 +19,14 @@ import java.util.List;
 @RequestMapping("/atm")
 @AllArgsConstructor
 public class AtmController {
-    private final AtmService atmService;
+    private AtmService atmService;
+
     @Operation(summary = "Get All atm")
     @GetMapping
     public List<AtmDto> getAllAtm() {
         return atmService.getAllAtm();
     }
+
     @Operation(summary = "Add atm")
     @PostMapping
     public AtmDto addAtm(@RequestBody AtmDto atmDto) {
