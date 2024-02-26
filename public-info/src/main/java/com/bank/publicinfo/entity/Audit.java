@@ -1,5 +1,6 @@
 package com.bank.publicinfo.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -15,7 +16,8 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "audit",schema = "public_bank_information")
+@AllArgsConstructor
+@Table(name = "audit", schema = "public_bank_information")
 public class Audit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

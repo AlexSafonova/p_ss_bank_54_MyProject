@@ -1,8 +1,6 @@
 package com.bank.publicinfo.mapper;
 
-import com.bank.publicinfo.dto.AtmDto;
 import com.bank.publicinfo.dto.AuditDto;
-import com.bank.publicinfo.entity.Atm;
 import com.bank.publicinfo.entity.Audit;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

@@ -43,6 +43,7 @@ public class AtmServiceImpl implements AtmService {
     public void deleteAtm(Long id) {
         atmRepository.delete(atmValidation.findAtmValidator(id));
     }
+
     private Atm validateAndCreateAtm(AtmDto atmDto) {
         return atmValidation.createAtmValidator(atmMapper.toAtm(atmDto));
     }

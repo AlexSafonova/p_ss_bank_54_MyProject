@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuditMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">public-info</a> &gt; <a href="index.source.html" class="el_package">com.bank.publicinfo.mapper</a> &gt; <span class="el_source">AuditMapperImpl.java</span></div><h1>AuditMapperImpl.java</h1><pre class="source lang-java linenums">package com.bank.publicinfo.mapper;
+
+import com.bank.publicinfo.dto.AuditDto;
+import com.bank.publicinfo.entity.Audit;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2024-02-26T15:15:32+0300&quot;,
+    comments = &quot;version: 1.5.3.Final, compiler: javac, environment: Java 17.0.10 (Amazon.com Inc.)&quot;
+)
+@Component
+<span class="nc" id="L16">public class AuditMapperImpl implements AuditMapper {</span>
+
+    @Override
+    public List&lt;AuditDto&gt; toListAudetDto(List&lt;Audit&gt; list) {
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L21">            return null;</span>
+        }
+
+<span class="nc" id="L24">        List&lt;AuditDto&gt; list1 = new ArrayList&lt;AuditDto&gt;( list.size() );</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        for ( Audit audit : list ) {</span>
+<span class="nc" id="L26">            list1.add( auditToAuditDto( audit ) );</span>
+<span class="nc" id="L27">        }</span>
+
+<span class="nc" id="L29">        return list1;</span>
+    }
+
+    protected AuditDto auditToAuditDto(Audit audit) {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if ( audit == null ) {</span>
+<span class="nc" id="L34">            return null;</span>
+        }
+
+<span class="nc" id="L37">        AuditDto.AuditDtoBuilder auditDto = AuditDto.builder();</span>
+
+<span class="nc" id="L39">        auditDto.id( audit.getId() );</span>
+<span class="nc" id="L40">        auditDto.entity_type( audit.getEntity_type() );</span>
+<span class="nc" id="L41">        auditDto.operation_type( audit.getOperation_type() );</span>
+<span class="nc" id="L42">        auditDto.created_by( audit.getCreated_by() );</span>
+<span class="nc" id="L43">        auditDto.modified_by( audit.getModified_by() );</span>
+<span class="nc" id="L44">        auditDto.created_at( audit.getCreated_at() );</span>
+<span class="nc" id="L45">        auditDto.modified_at( audit.getModified_at() );</span>
+<span class="nc" id="L46">        auditDto.new_entity_json( audit.getNew_entity_json() );</span>
+<span class="nc" id="L47">        auditDto.entity_json( audit.getEntity_json() );</span>
+
+<span class="nc" id="L49">        return auditDto.build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

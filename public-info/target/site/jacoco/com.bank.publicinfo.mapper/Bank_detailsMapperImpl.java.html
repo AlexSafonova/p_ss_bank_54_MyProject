@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bank_detailsMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">public-info</a> &gt; <a href="index.source.html" class="el_package">com.bank.publicinfo.mapper</a> &gt; <span class="el_source">Bank_detailsMapperImpl.java</span></div><h1>Bank_detailsMapperImpl.java</h1><pre class="source lang-java linenums">package com.bank.publicinfo.mapper;
+
+import com.bank.publicinfo.dto.Bank_detailsDto;
+import com.bank.publicinfo.entity.Bank_details;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2024-02-26T15:15:32+0300&quot;,
+    comments = &quot;version: 1.5.3.Final, compiler: javac, environment: Java 17.0.10 (Amazon.com Inc.)&quot;
+)
+@Component
+<span class="nc" id="L16">public class Bank_detailsMapperImpl implements Bank_detailsMapper {</span>
+
+    @Override
+    public Bank_detailsDto toBank_detailsDto(Bank_details bankDetails) {
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        if ( bankDetails == null ) {</span>
+<span class="nc" id="L21">            return null;</span>
+        }
+
+<span class="nc" id="L24">        Bank_detailsDto.Bank_detailsDtoBuilder bank_detailsDto = Bank_detailsDto.builder();</span>
+
+<span class="nc" id="L26">        bank_detailsDto.id( bankDetails.getId() );</span>
+<span class="nc" id="L27">        bank_detailsDto.bik( bankDetails.getBik() );</span>
+<span class="nc" id="L28">        bank_detailsDto.inn( bankDetails.getInn() );</span>
+<span class="nc" id="L29">        bank_detailsDto.kpp( bankDetails.getKpp() );</span>
+<span class="nc" id="L30">        bank_detailsDto.cor_account( bankDetails.getCor_account() );</span>
+<span class="nc" id="L31">        bank_detailsDto.city( bankDetails.getCity() );</span>
+<span class="nc" id="L32">        bank_detailsDto.joint_stock_company( bankDetails.getJoint_stock_company() );</span>
+<span class="nc" id="L33">        bank_detailsDto.name( bankDetails.getName() );</span>
+
+<span class="nc" id="L35">        return bank_detailsDto.build();</span>
+    }
+
+    @Override
+    public Bank_details toBank_details(Bank_detailsDto bankDetailsDto) {
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if ( bankDetailsDto == null ) {</span>
+<span class="nc" id="L41">            return null;</span>
+        }
+
+<span class="nc" id="L44">        Bank_details bank_details = new Bank_details();</span>
+
+<span class="nc" id="L46">        bank_details.setId( bankDetailsDto.getId() );</span>
+<span class="nc" id="L47">        bank_details.setBik( bankDetailsDto.getBik() );</span>
+<span class="nc" id="L48">        bank_details.setInn( bankDetailsDto.getInn() );</span>
+<span class="nc" id="L49">        bank_details.setKpp( bankDetailsDto.getKpp() );</span>
+<span class="nc" id="L50">        bank_details.setCor_account( bankDetailsDto.getCor_account() );</span>
+<span class="nc" id="L51">        bank_details.setCity( bankDetailsDto.getCity() );</span>
+<span class="nc" id="L52">        bank_details.setJoint_stock_company( bankDetailsDto.getJoint_stock_company() );</span>
+<span class="nc" id="L53">        bank_details.setName( bankDetailsDto.getName() );</span>
+
+<span class="nc" id="L55">        return bank_details;</span>
+    }
+
+    @Override
+    public List&lt;Bank_detailsDto&gt; toListBank_detailsDto(List&lt;Bank_details&gt; list) {
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L61">            return null;</span>
+        }
+
+<span class="nc" id="L64">        List&lt;Bank_detailsDto&gt; list1 = new ArrayList&lt;Bank_detailsDto&gt;( list.size() );</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        for ( Bank_details bank_details : list ) {</span>
+<span class="nc" id="L66">            list1.add( toBank_detailsDto( bank_details ) );</span>
+<span class="nc" id="L67">        }</span>
+
+<span class="nc" id="L69">        return list1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

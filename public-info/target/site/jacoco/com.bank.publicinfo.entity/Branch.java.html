@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Branch.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">public-info</a> &gt; <a href="index.source.html" class="el_package">com.bank.publicinfo.entity</a> &gt; <span class="el_source">Branch.java</span></div><h1>Branch.java</h1><pre class="source lang-java linenums">package com.bank.publicinfo.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.time.OffsetTime;
+
+<span class="pc bpc" id="L16" title="59 of 60 branches missed.">@Data</span>
+@Entity
+<span class="nc" id="L18">@NoArgsConstructor</span>
+<span class="pc bpc" id="L19" title="3 of 6 branches missed.">@AllArgsConstructor</span>
+@Table(name = &quot;branch&quot;,schema = &quot;public_bank_information&quot;)
+public class Branch {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
+<span class="nc" id="L25">    private Long id;</span>
+    @NonNull
+    @Column(length = 370)
+<span class="nc" id="L28">    private String address;</span>
+    @NonNull
+    @Column(unique = true)
+<span class="nc" id="L31">    private Long phone_number;</span>
+    @NonNull
+    @Column
+<span class="nc" id="L34">    private String city;</span>
+    @Column(columnDefinition = &quot;TIME WITH TIME ZONE&quot;, length = 6)
+<span class="nc" id="L36">    private OffsetTime start_of_work;</span>
+    @Column(columnDefinition = &quot;TIME WITH TIME ZONE&quot;, length = 6)
+<span class="nc" id="L38">    private OffsetTime end_of_work;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

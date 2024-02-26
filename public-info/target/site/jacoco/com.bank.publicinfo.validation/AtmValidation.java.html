@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AtmValidation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">public-info</a> &gt; <a href="index.source.html" class="el_package">com.bank.publicinfo.validation</a> &gt; <span class="el_source">AtmValidation.java</span></div><h1>AtmValidation.java</h1><pre class="source lang-java linenums">package com.bank.publicinfo.validation;
+
+import com.bank.publicinfo.entity.Atm;
+import com.bank.publicinfo.exception.NotFoundException;
+import com.bank.publicinfo.exception.ValidatorException;
+import com.bank.publicinfo.repository.AtmRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="fc" id="L11">@AllArgsConstructor</span>
+public class AtmValidation {
+    private final AtmRepository atmRepository;
+
+    public Atm createAtmValidator(Atm atm) {
+<span class="fc bfc" id="L16" title="All 6 branches covered.">        if (atm != null &amp;&amp; !atm.getAddress().isBlank() &amp;&amp; atm.getAll_hours() != null) {</span>
+<span class="fc" id="L17">            return atm;</span>
+        } else {
+<span class="fc" id="L19">            throw new ValidatorException(&quot;Can't be null Atm or empty address and all_hours&quot;);</span>
+        }
+    }
+
+    public Atm findAtmValidator(Long id) {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (atmRepository.findById(id).isPresent()) {</span>
+<span class="fc" id="L25">            return atmRepository.findById(id).get();</span>
+        } else {
+<span class="fc" id="L27">            throw new NotFoundException(&quot;Atm &quot; + id + &quot; not found&quot;);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

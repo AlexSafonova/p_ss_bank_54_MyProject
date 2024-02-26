@@ -11,6 +11,7 @@ import java.util.List;
 @Component
 public interface AtmMapper {
     AtmDto toDto(Atm atm);
+
     Atm toAtm(AtmDto atmDto);
 
     List<AtmDto> toListAtmDto(List<Atm> list);

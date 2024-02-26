@@ -15,9 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 public class AuditController {
     private final AuditService auditService;
+
     @Operation(summary = "Get All audit")
     @GetMapping
-    public List<AuditDto> getAllAtm() {
+    public List<AuditDto> getAllAudit() {
         return auditService.getAllAudit();
     }
 }

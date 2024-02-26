@@ -13,10 +13,10 @@ public class AtmValidation {
     private final AtmRepository atmRepository;
 
     public Atm createAtmValidator(Atm atm) {
-        if (!atm.getAddress().isBlank() && atm.getAll_hours() != null) {
+        if (atm != null && !atm.getAddress().isBlank() && atm.getAll_hours() != null) {
             return atm;
         } else {
-            throw new ValidatorException("Can't be empty address and all_hours");
+            throw new ValidatorException("Can't be null Atm or empty address and all_hours");
         }
     }
 

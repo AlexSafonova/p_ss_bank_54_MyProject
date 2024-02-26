@@ -3,7 +3,7 @@ package com.bank.publicinfo.aspect;
 import com.bank.publicinfo.entity.Audit;
 import com.bank.publicinfo.service.AuditService;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -29,7 +29,7 @@ public class AspectAdvices {
     @Around("com.bank.publicinfo.aspect.Pointcuts.allMethodsInServicesWithoutAudit()")
     public Object aroundAllGetAllMetodsAdvice(ProceedingJoinPoint pjp) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
-        audit.setOperation_type(methodSignature.getMethod().getName());
+        audit.setOperation_type(methodSignature.getName());
         audit.setEntity_type(methodSignature.getDeclaringTypeName().substring(28, methodSignature.getDeclaringTypeName().length() - 11));
         audit.setCreated_by(PROFILE_ID);
         audit.setCreated_at(new Timestamp(System.currentTimeMillis()));
@@ -40,7 +40,7 @@ public class AspectAdvices {
         return returnObject;
     }
 
-    @AfterReturning("com.bank.publicinfo.aspect.Pointcuts.allMethodsInServicesWithoutAudit()")
+    @After("com.bank.publicinfo.aspect.Pointcuts.allMethodsInServicesWithoutAudit()")
     public void afterAllGetAllMetodsAdvice() {
         audit.setModified_by(PROFILE_ID);
         audit.setModified_at(new Timestamp(System.currentTimeMillis()));

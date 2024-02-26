@@ -1,5 +1,6 @@
 package com.bank.publicinfo.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,12 +16,14 @@ import javax.persistence.Table;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "certificate",schema = "public_bank_information")
+@AllArgsConstructor
+@Table(name = "certificate", schema = "public_bank_information")
 public class Certificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
     private Long id;
+
     private Byte[] photo;
     @ManyToOne
     @JoinColumn(name = "bank_details_id")
