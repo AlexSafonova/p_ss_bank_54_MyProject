@@ -1,0 +1,429 @@
+openapi: 3.0.3
+info:
+  title: Anti_Fraud
+  description: Anti_Fraud_SpringBoot
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8086/api/anti-fraud'
+paths:
+  /suspicious-account-transfers/{id}:
+    get:
+      summary: Get account transfer by id with description
+      tags:
+        - SuspiciousAccountTransfer
+      description: Get account transfer by id with description
+      operationId: findById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the account transfer
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully get account transfer by id with description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuspiciousAccountTransfer'
+        default:
+          description: Failed to get account transfer by id with description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete account transfer
+      tags:
+        - SuspiciousAccountTransfer
+      description: Delete account transfer
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the account transfer
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully delete account transfer
+          content:
+            application/json: { }
+        default:
+          description: Failed to delete account transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /suspicious-account-transfers:
+    post:
+      summary: Take a transfer entity and return a prediction about fraud
+      tags:
+        - SuspiciousAccountTransfer
+      description: Take a transfer entity and return a prediction about fraud
+      operationId: predict
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferMock'
+      responses:
+        '200':
+          description: Successfully take a transfer entity and return a prediction about fraud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuspiciousAccountTransfer'
+        default:
+          description: Failed to take a transfer entity and return a prediction about fraud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update account transfer
+      tags:
+        - SuspiciousAccountTransfer
+      description: Update account transfer
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuspiciousAccountTransfer'
+      responses:
+        '200':
+          description: Successfully update account transfer
+          content:
+            application/json: {}
+        default:
+          description: Failed to update account transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /suspicious-card-transfers/{id}:
+    get:
+      summary: Get card transfer by id with description
+      tags:
+        - SuspiciousCardTransfer
+      description: Get card transfer by id with description
+      operationId: findById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the card transfer
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully get card transfer by id with description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuspiciousCardTransfer'
+        default:
+          description: Failed to get card transfer by id with description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete card transfer
+      tags:
+        - SuspiciousCardTransfer
+      description: Delete card transfer
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the card transfer
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully delete card transfer
+          content:
+            application/json: { }
+        default:
+          description: Failed to delete card transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /suspicious-card-transfers:
+    post:
+      summary: Take a transfer entity and return a prediction about fraud
+      tags:
+        - SuspiciousCardTransfer
+      description: Take a transfer entity and return a prediction about fraud
+      operationId: predict
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferMock'
+      responses:
+        '200':
+          description: Successfully take a transfer entity and return a prediction about fraud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuspiciousCardTransfer'
+        default:
+          description: Failed to take a transfer entity and return a prediction about fraud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update card transfer
+      tags:
+        - SuspiciousCardTransfer
+      description: Update card transfer
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuspiciousCardTransfer'
+      responses:
+        '200':
+          description: Successfully update card transfer
+          content:
+            application/json: {}
+        default:
+          description: Failed to update card transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /suspicious-phone-transfers/{id}:
+    get:
+      summary: Get phone transfer by id with description
+      tags:
+        - SuspiciousPhoneTransfer
+      description: Get phone transfer by id with description
+      operationId: findById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the phone transfer
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully get phone transfer by id with description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuspiciousPhoneTransfer'
+        default:
+          description: Failed to get phone transfer by id with description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete phone transfer
+      tags:
+        - SuspiciousPhoneTransfer
+      description: Delete phone transfer by id
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the phone transfer
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully delete phone transfer
+          content:
+            application/json: { }
+        default:
+          description: Failed to delete phone transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /suspicious-phone-transfers:
+    post:
+      summary: Take a transfer entity and return a prediction about fraud
+      tags:
+        - SuspiciousPhoneTransfer
+      description: Take a transfer entity and return a prediction about fraud
+      operationId: predict
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferMock'
+      responses:
+        '200':
+          description: Successfully take a transfer entity and return a prediction about fraud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuspiciousPhoneTransfer'
+        default:
+          description: Failed to take a transfer entity and return a prediction about fraud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update phone transfer
+      tags:
+        - SuspiciousPhoneTransfer
+      description: Update phone transfer
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuspiciousPhoneTransfer'
+      responses:
+        '200':
+          description: Successfully update phone transfer
+          content:
+            application/json: {}
+        default:
+          description: Failed to update phone transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+components:
+  schemas:
+    SuspiciousAccountTransfer:
+      type: object
+      properties:
+        id:
+          type: Long
+          description: The id of the suspicious account transfer
+          example: 1
+        accountTransferId:
+          type: Long
+          description: The id of the account transfer
+          example: 1
+        isSuspicious:
+          type: Boolean
+          description: Check if the account transfer is suspicious
+          example: true
+        suspiciousReason:
+          type: String
+          description: The description of the reason of the suspicious account transfer
+          example: "Fraud"
+        isBlocked:
+          type: Boolean
+          description: Check if the account transfer is blocked
+          example: false
+        blockedReason:
+          type: String
+          description: The description of the reason of the blocked account transfer
+          example: "Blocked"
+    SuspiciousAccountTransfers:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuspiciousAccountTransfer'
+    SuspiciousCardTransfer:
+      type: object
+      properties:
+        id:
+          type: Long
+          description: The id of the suspicious card transfer
+          example: 1
+        cardTransferId:
+          type: Long
+          description: The id of the card transfer
+          example: 1
+        isSuspicious:
+          type: Boolean
+          description: Check if the card transfer is suspicious
+          example: true
+        suspiciousReason:
+          type: String
+          description: The description of the reason of the suspicious card transfer
+          example: "Fraud"
+        isBlocked:
+          type: Boolean
+    SuspiciousCardTransfers:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuspiciousCardTransfer'
+    SuspiciousPhoneTransfer:
+      type: object
+      properties:
+        id:
+          type: Long
+          description: The id of the suspicious phone transfer
+          example: 1
+        phoneTransferId:
+          type: Long
+          description: The id of the phone transfer
+          example: 1
+        isSuspicious:
+          type: Boolean
+          description: Check if the phone transfer is suspicious
+          example: true
+        suspiciousReason:
+          type: String
+          description: The description of the reason of the suspicious phone transfer
+          example: "Fraud"
+        isBlocked:
+          type: Boolean
+          description: Check if the phone transfer is blocked
+          example: false
+        blockedReason:
+          type: String
+          description: The description of the reason of the blocked phone transfer
+          example: "Blocked"
+    SuspiciousPhoneTransfers:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuspiciousPhoneTransfer'
+    TransferMock:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id of the transfer mock
+          example: 1
+        identificationNumber:
+          type: integer
+          description: The identification number of the transfer
+          example: 1
+        amount:
+          type: integer
+          description: The amount of the transfer
+          example: 1000
+        purpose:
+          type: string
+          description: The purpose of the transfer
+          example: "Payment"
+        accountDetailId:
+          type: integer
+          description: The id of the account detail of the transfer
+          example: 1
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The error code
+          example: 400
+        message:
+          type: string
+          description: The error message
+          example: "Bad request"
