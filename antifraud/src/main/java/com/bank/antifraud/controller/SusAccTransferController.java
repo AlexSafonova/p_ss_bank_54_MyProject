@@ -29,10 +29,11 @@ public class SusAccTransferController {
     @Operation(summary = "Get suspicious account transfer",
             description = "Get suspicious account transfer by id")
     public SuspiciousAccountTransfers findById(@PathVariable Long id) {
-        if (suspiciousAccountTransferService.findSuspiciousTransferById(id) == null) {
+        SuspiciousAccountTransfers suspiciousAccountTransfers = suspiciousAccountTransferService.findSuspiciousTransferById(id);
+        if (suspiciousAccountTransfers == null) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }
-        return suspiciousAccountTransferService.findSuspiciousTransferById(id);
+        return suspiciousAccountTransfers;
     }
     @PostMapping
     @Operation(summary = "Create suspicious account transfer",

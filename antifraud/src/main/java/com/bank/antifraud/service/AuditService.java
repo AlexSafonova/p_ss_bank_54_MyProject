@@ -3,6 +3,8 @@ package com.bank.antifraud.service;
 import com.bank.antifraud.entity.Audit;
 import com.bank.antifraud.exception.AuditNotFoundException;
 import com.bank.antifraud.repository.AuditRepository;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@Getter
+@Setter
 
 public class AuditService {
     private final AuditRepository auditRepository;

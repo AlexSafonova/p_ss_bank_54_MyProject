@@ -21,4 +21,5 @@ public class SuspiciousTransferGlobalExceptionHandler {
         return ResponseEntity.badRequest().body(transferIncorrectData);
     }
 
+
 }

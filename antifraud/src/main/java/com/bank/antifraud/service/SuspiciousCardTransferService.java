@@ -53,6 +53,9 @@ public class SuspiciousCardTransferService {
 
     @Transactional
     public void updateSuspiciousTransfer(SuspiciousCardTransfer suspiciousTransfer) {
+        if (suspiciousTransfer == null) {
+            throw new SuspiciousTransferNotFoundException("Suspicious transfer is null");
+        }
         SuspiciousCardTransfer suspiciousTransfer1 = suspiciousTransferRepository.findById(suspiciousTransfer.getId()).orElse(null);
         if (suspiciousTransfer1 == null) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + suspiciousTransfer.getId() + " not found");

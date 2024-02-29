@@ -30,10 +30,11 @@ public class SusPhoneTransferController {
     @Operation(summary = "Get suspicious phone transfer",
             description = "Get suspicious phone transfer by id")
     public SuspiciousPhoneTransfers findById(@PathVariable Long id) {
-        if (suspiciousPhoneTransferService.findSuspiciousTransferById(id) == null) {
+        SuspiciousPhoneTransfers suspiciousPhoneTransfers = suspiciousPhoneTransferService.findSuspiciousTransferById(id);
+        if (suspiciousPhoneTransfers == null) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }
-        return suspiciousPhoneTransferService.findSuspiciousTransferById(id);
+        return suspiciousPhoneTransfers;
     }
     @PostMapping
     @Operation(summary = "Create suspicious phone transfer",

@@ -26,8 +26,7 @@ public class AccountTransferFraudPredictor implements Predictor {
         if (transferMock.getAmount() > maxAmount) {
             transferMock.setSuspiciousReason("Amount is too high");
             return true;
-        }
-        if (auditRepository.findAllByAccountDetailId("accountDetailId=" + transferMock.getAccountDetailId())
+        } else if (auditRepository.findAllByAccountDetailId("accountDetailId=" + transferMock.getAccountDetailId())
                 .stream().filter(audit -> audit.getCreatedAt()
                         .after(new Timestamp(System.currentTimeMillis() - 60 * 60 * 1000)))
                 .count() > maxOperationsPerHour) {

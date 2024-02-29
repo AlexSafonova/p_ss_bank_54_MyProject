@@ -29,10 +29,11 @@ public class SusCardTransferController {
     @Operation(summary = "Get suspicious transfer",
             description = "Get suspicious transfer by id")
     public SuspiciousCardTransfer findById(@PathVariable Long id) {
-        if (suspiciousCardTransferService.findSuspiciousTransferById(id) == null) {
+        SuspiciousCardTransfer suspiciousCardTransfer = suspiciousCardTransferService.findSuspiciousTransferById(id);
+        if (suspiciousCardTransfer == null) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }
-        return suspiciousCardTransferService.findSuspiciousTransferById(id);
+        return suspiciousCardTransfer;
     }
     @PostMapping
     @Operation(summary = "Create suspicious transfer",
@@ -53,4 +54,5 @@ public class SusCardTransferController {
     public void deleteSuspiciousTransfer(@PathVariable Long id) {
         suspiciousCardTransferService.deleteSuspiciousTransfer(id);
     }
+
 }
