@@ -2,7 +2,7 @@ package com.bank.antifraud.controller;
 
 import com.bank.antifraud.entity.SuspiciousCardTransfer;
 import com.bank.antifraud.exception.SuspiciousTransferNotFoundException;
-import com.bank.antifraud.fraud_predictor.CardTransferFraudPredictor;
+import com.bank.antifraud.fraudpredictor.CardTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousCardTransferRepository;
 import com.bank.antifraud.service.SuspiciousCardTransferService;
 import com.bank.antifraud.util.TransferMock;
@@ -16,6 +16,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 @ExtendWith({MockitoExtension.class, SpringExtension.class})
 @EnableJpaRepositories
@@ -56,6 +59,16 @@ public class SusCardTransferControllerTest {
         // Assert
         assertEquals(expectedTransfer, actualTransfer);
     }
+    @Test
+    public void test_handle_exceptions() {
+        // Arrange
+        SusCardTransferController susCardTransferController = new SusCardTransferController(suspiciousCardTransferService);
+        Long id = 1L;
+        when(suspiciousCardTransferService.findSuspiciousTransferById(id)).thenThrow(new SuspiciousTransferNotFoundException("Suspicious transfer not found"));
+
+        // Act & Assert
+        assertThrows(SuspiciousTransferNotFoundException.class, () -> susCardTransferController.findById(id));
+    }
 
     @Test
     public void test_valid_transfer() {
@@ -84,21 +97,33 @@ public class SusCardTransferControllerTest {
         // Assert
         assertEquals(expectedTransfer, result);
     }
-
     @Test
-    public void test_deleteSuspiciousTransfer_validId() {
+    public void test_deleteSuspiciousTransfer_invalidId() {
         // Arrange
-        SusCardTransferController susCardTransferController = new SusCardTransferController(suspiciousCardTransferService);
         Long id = 1L;
+        doThrow(SuspiciousTransferNotFoundException.class).when(suspiciousCardTransferService).deleteSuspiciousTransfer(id);
+        SusCardTransferController susCardTransferController = new SusCardTransferController(suspiciousCardTransferService);
+
+        // Act & Assert
+        assertThrows(SuspiciousTransferNotFoundException.class, () -> susCardTransferController.deleteSuspiciousTransfer(id));
+    }
+    @Test
+    public void test_updateValidSuspiciousTransfer() {
+        // Arrange
+        SuspiciousCardTransfer suspiciousCardTransfer = new SuspiciousCardTransfer();
+        suspiciousCardTransfer.setId(1L);
+        suspiciousCardTransfer.setCardTransferId(123);
+        suspiciousCardTransfer.setBlocked(false);
+        suspiciousCardTransfer.setSuspicious(true);
+        suspiciousCardTransfer.setSuspiciousReason("Suspicious transfer");
+
+        SuspiciousCardTransferService suspiciousCardTransferService = mock(SuspiciousCardTransferService.class);
+        SusCardTransferController controller = new SusCardTransferController(suspiciousCardTransferService);
 
         // Act
-        susCardTransferController.deleteSuspiciousTransfer(id);
+        controller.updateSuspiciousTransfer(suspiciousCardTransfer);
 
         // Assert
-        // Verify that the suspicious transfer is deleted by checking if it throws a SuspiciousTransferNotFoundException
-        assertThrows(SuspiciousTransferNotFoundException.class, () -> {
-            susCardTransferController.findById(id);
-        });
+        verify(suspiciousCardTransferService).updateSuspiciousTransfer(suspiciousCardTransfer);
     }
-
 }

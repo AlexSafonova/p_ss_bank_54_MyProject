@@ -2,7 +2,7 @@ package com.bank.antifraud.service;
 
 import com.bank.antifraud.entity.SuspiciousPhoneTransfers;
 import com.bank.antifraud.exception.SuspiciousTransferNotFoundException;
-import com.bank.antifraud.fraud_predictor.PhoneTransferFraudPredictor;
+import com.bank.antifraud.fraudpredictor.PhoneTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousPhoneTransferRepository;
 import com.bank.antifraud.util.TransferMock;
 import org.junit.jupiter.api.Test;

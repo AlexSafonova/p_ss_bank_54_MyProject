@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 
-public class AuditAOPTest {
+public class AuditAspectTest {
     @Mock
     ObjectMapper objectMapper;
     @Mock
@@ -31,7 +31,7 @@ public class AuditAOPTest {
     MethodSignature methodSignature;
 
     @InjectMocks
-    AuditAOP auditAOP;
+    AuditAspect auditAspect;
 
 
     @Test
@@ -41,23 +41,9 @@ public class AuditAOPTest {
         doReturn(args).when(joinPoint).getArgs();
         when(joinPoint.getSignature()).thenReturn(methodSignature);
         when(objectMapper.writeValueAsString(any())).thenReturn("test");
-        auditAOP.saveAuditAdvice(joinPoint);
+        auditAspect.newAuditAdvice(joinPoint);
         verify(joinPoint).getArgs();
         verify(joinPoint).getSignature();
         verify(auditService, times(1)).saveAudit(any());
     }
-
-    @Test
-    public void test_update_audit() throws Throwable {
-        Object[] args = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi, ut aliquip ex ea commodo consequat.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris, nisi ut aliquip ex ea commodo consequat."};
-        doReturn(args).when(joinPoint).getArgs();
-        when(joinPoint.getSignature()).thenReturn(methodSignature);
-        when(objectMapper.writeValueAsString(any())).thenReturn("test");
-        auditAOP.updateAuditAdvice(joinPoint);
-        verify(joinPoint).getArgs();
-        verify(joinPoint).getSignature();
-        verify(auditService, times(1)).saveAudit(any());
-    }
-
 }

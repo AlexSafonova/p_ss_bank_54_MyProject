@@ -1,8 +1,11 @@
-package com.bank.antifraud.fraud_predictor;
+package com.bank.antifraud.fraudpredictor;
 
 import com.bank.antifraud.repository.AuditRepository;
 import com.bank.antifraud.util.TransferMock;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -11,26 +14,25 @@ import java.sql.Timestamp;
 //количества операций больше чем maxOperationsPerHour возвращает true(перевод подозрительный);
 //также учитывается сумма перевода, при превышении maxAmount возвращает true(перевод подозрительный).
 @Component
-public class AccountTransferFraudPredictor implements Predictor {
-    private final Long maxAmount = 100000L;
-    private final int maxOperationsPerHour = 5;
+@RequiredArgsConstructor
+@Setter
+public class PhoneTransferFraudPredictor implements Predictor {
+    @Value("${fraud.max_Amount}")
+    private Long maxAmount;
+    @Value("${fraud.max_Operations_Per_Hour}")
+    private int maxOperationsPerHour;
     private final AuditRepository auditRepository;
-
-    @Autowired
-    public AccountTransferFraudPredictor(AuditRepository auditRepository) {
-        this.auditRepository = auditRepository;
-    }
-
     @Override
     public boolean predict(TransferMock transferMock) {
         if (transferMock.getAmount() > maxAmount) {
             transferMock.setSuspiciousReason("Amount is too high");
             return true;
-        } else if (auditRepository.findAllByAccountDetailId("accountDetailId=" + transferMock.getAccountDetailId())
+        }
+        if (auditRepository.findAllByAccountDetailId("accountDetailId=" + transferMock.getAccountDetailId())
                 .stream().filter(audit -> audit.getCreatedAt()
                         .after(new Timestamp(System.currentTimeMillis() - 60 * 60 * 1000)))
                 .count() > maxOperationsPerHour) {
-            transferMock.setSuspiciousReason("Too many operations in the last hour");
+            transferMock.setSuspiciousReason("Too many operations");
             return true;
         }
         return false;

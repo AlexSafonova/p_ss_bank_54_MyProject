@@ -2,7 +2,7 @@ package com.bank.antifraud.controller;
 
 import com.bank.antifraud.entity.SuspiciousPhoneTransfers;
 import com.bank.antifraud.exception.SuspiciousTransferNotFoundException;
-import com.bank.antifraud.fraud_predictor.PhoneTransferFraudPredictor;
+import com.bank.antifraud.fraudpredictor.PhoneTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousPhoneTransferRepository;
 import com.bank.antifraud.service.SuspiciousPhoneTransferService;
 import com.bank.antifraud.util.TransferMock;
@@ -47,18 +47,15 @@ public class SusPhoneTransferControllerTest {
         assertEquals(expectedTransfer, actualTransfer);
         verify(suspiciousPhoneTransferService).findSuspiciousTransferById(id);
     }
-
     @Test
-    public void test_null_id() {
+    public void test_handle_exceptions() {
         // Arrange
         SusPhoneTransferController susPhoneTransferController = new SusPhoneTransferController(suspiciousPhoneTransferService);
-        Long id = null;
+        Long id = 1L;
+        when(suspiciousPhoneTransferService.findSuspiciousTransferById(id)).thenThrow(new SuspiciousTransferNotFoundException("Suspicious transfer not found"));
 
-        // Act and Assert
-        assertThrows(SuspiciousTransferNotFoundException.class, () -> {
-            susPhoneTransferController.findById(id);
-        });
-        verify(suspiciousPhoneTransferService).findSuspiciousTransferById(id);
+        // Act & Assert
+        assertThrows(SuspiciousTransferNotFoundException.class, () -> susPhoneTransferController.findById(id));
     }
 
     @Test

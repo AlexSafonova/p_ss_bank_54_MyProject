@@ -2,9 +2,10 @@ package com.bank.antifraud.service;
 
 import com.bank.antifraud.entity.SuspiciousPhoneTransfers;
 import com.bank.antifraud.exception.SuspiciousTransferNotFoundException;
-import com.bank.antifraud.fraud_predictor.PhoneTransferFraudPredictor;
+import com.bank.antifraud.fraudpredictor.PhoneTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousPhoneTransferRepository;
 import com.bank.antifraud.util.TransferMock;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,16 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 
 public class SuspiciousPhoneTransferService{
     private final PhoneTransferFraudPredictor phoneTransferFraudPredictor;
     private final SuspiciousPhoneTransferRepository suspiciousTransferRepository;
-    @Autowired
-
-    public SuspiciousPhoneTransferService(PhoneTransferFraudPredictor phoneTransferFraudPredictor, SuspiciousPhoneTransferRepository suspiciousTransferRepository) {
-        this.phoneTransferFraudPredictor = phoneTransferFraudPredictor;
-        this.suspiciousTransferRepository = suspiciousTransferRepository;
-    }
 
     @Transactional
     public SuspiciousPhoneTransfers saveSuspiciousTransfer(TransferMock transferMock) {

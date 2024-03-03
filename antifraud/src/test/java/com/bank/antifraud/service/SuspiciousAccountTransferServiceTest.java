@@ -2,7 +2,7 @@ package com.bank.antifraud.service;
 
 import com.bank.antifraud.entity.SuspiciousAccountTransfers;
 import com.bank.antifraud.exception.SuspiciousTransferNotFoundException;
-import com.bank.antifraud.fraud_predictor.AccountTransferFraudPredictor;
+import com.bank.antifraud.fraudpredictor.AccountTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousAccountTransferRepository;
 import com.bank.antifraud.util.TransferMock;
 import org.junit.jupiter.api.Test;

@@ -4,26 +4,23 @@ import com.bank.antifraud.entity.Audit;
 import com.bank.antifraud.exception.AuditNotFoundException;
 import com.bank.antifraud.repository.AuditRepository;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
 @Getter
 @Setter
+@RequiredArgsConstructor
 
 public class AuditService {
     private final AuditRepository auditRepository;
-
-    @Autowired
-    public AuditService(AuditRepository auditRepository) {
-        this.auditRepository = auditRepository;
-    }
-
     @Transactional
     public void saveAudit(Audit audit) {
         if (audit != null) {
@@ -34,10 +31,11 @@ public class AuditService {
 
     @Transactional(readOnly = true)
     public Audit findAuditById(Long id) throws AuditNotFoundException {
-        if (auditRepository.findById(id).isEmpty()) {
+        Optional <Audit> audit = auditRepository.findById(id);
+        if (audit.isEmpty()) {
             throw new AuditNotFoundException("Audit with id " + id + " not found");
         }
-        return auditRepository.findById(id).get();
+        return audit.get();
     }
 
     @Transactional(readOnly = true)
@@ -46,6 +44,5 @@ public class AuditService {
             throw new AuditNotFoundException("Audits with id " + accountDetailId + " not found");
         }
         return auditRepository.findAllByAccountDetailId(accountDetailId);
-
     }
 }

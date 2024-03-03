@@ -2,25 +2,23 @@ package com.bank.antifraud.service;
 
 import com.bank.antifraud.entity.SuspiciousAccountTransfers;
 import com.bank.antifraud.exception.SuspiciousTransferNotFoundException;
-import com.bank.antifraud.fraud_predictor.AccountTransferFraudPredictor;
+import com.bank.antifraud.fraudpredictor.AccountTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousAccountTransferRepository;
 import com.bank.antifraud.util.TransferMock;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 public class SuspiciousAccountTransferService {
     private final AccountTransferFraudPredictor accountTransferFraudPredictor;
     private final SuspiciousAccountTransferRepository suspiciousTransferRepository;
 
-    @Autowired
-    public SuspiciousAccountTransferService(AccountTransferFraudPredictor accountTransferFraudPredictor, SuspiciousAccountTransferRepository suspiciousTransferRepository) {
-        this.accountTransferFraudPredictor = accountTransferFraudPredictor;
-        this.suspiciousTransferRepository = suspiciousTransferRepository;
-    }
 
     @Transactional
     public SuspiciousAccountTransfers saveSuspiciousTransfer(TransferMock transferMock) {
@@ -44,10 +42,11 @@ public class SuspiciousAccountTransferService {
 
     @Transactional(readOnly = true)
     public SuspiciousAccountTransfers findSuspiciousTransferById(Long id) {
-        if (suspiciousTransferRepository.findById(id).isEmpty()) {
+        Optional <SuspiciousAccountTransfers> suspiciousTransfer = suspiciousTransferRepository.findById(id);
+        if (suspiciousTransfer.isEmpty()) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }
-        return suspiciousTransferRepository.findById(id).get();
+        return suspiciousTransfer.get();
     }
 
     @Transactional
@@ -69,11 +68,11 @@ public class SuspiciousAccountTransferService {
 
     @Transactional
     public void deleteSuspiciousTransfer(Long id) {
-        if (suspiciousTransferRepository.findById(id).isEmpty()) {
+        Optional <SuspiciousAccountTransfers> suspiciousTransfer = suspiciousTransferRepository.findById(id);
+        if (suspiciousTransfer.isEmpty()) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }
-        SuspiciousAccountTransfers suspiciousTransfer = suspiciousTransferRepository.findById(id).orElse(null);
-        suspiciousTransferRepository.delete(suspiciousTransfer);
-        Logger.getGlobal().info("Suspicious transfer with id " + suspiciousTransfer.getId() + " deleted");
+        suspiciousTransferRepository.delete(suspiciousTransfer.get());
+        Logger.getGlobal().info("Suspicious transfer with id " + suspiciousTransfer.get().getId() + " deleted");
     }
 }

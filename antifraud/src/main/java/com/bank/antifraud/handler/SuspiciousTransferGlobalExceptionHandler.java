@@ -11,15 +11,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class SuspiciousTransferGlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<TransferIncorrectData> handleException(SuspiciousTransferNotFoundException exception) {
-        TransferIncorrectData transferIncorrectData = new TransferIncorrectData(exception.getMessage());
-        return ResponseEntity.badRequest().body(transferIncorrectData);
+        return ResponseEntity.badRequest().body(new TransferIncorrectData(exception.getMessage()));
     }
-
     @ExceptionHandler
     public ResponseEntity<TransferIncorrectData> handleException(AuditNotFoundException exception) {
-        TransferIncorrectData transferIncorrectData = new TransferIncorrectData(exception.getMessage());
-        return ResponseEntity.badRequest().body(transferIncorrectData);
+        return ResponseEntity.badRequest().body(new TransferIncorrectData(exception.getMessage()));
     }
-
-
 }

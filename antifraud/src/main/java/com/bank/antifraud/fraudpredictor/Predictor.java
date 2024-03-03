@@ -1,4 +1,4 @@
-package com.bank.antifraud.fraud_predictor;
+package com.bank.antifraud.fraudpredictor;
 
 import com.bank.antifraud.util.TransferMock;
 
