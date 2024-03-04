@@ -4,7 +4,6 @@ import com.bank.antifraud.repository.AuditRepository;
 import com.bank.antifraud.util.TransferMock;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +16,11 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 @Setter
 public class AccountTransferFraudPredictor implements Predictor {
+    private final AuditRepository auditRepository;
     @Value("${fraud.max_Amount}")
     private Long maxAmount;
     @Value("${fraud.max_Operations_Per_Hour}")
     private int maxOperationsPerHour;
-    private final AuditRepository auditRepository;
 
     @Override
     public boolean predict(TransferMock transferMock) {

@@ -12,7 +12,4 @@ public interface AuditRepository extends JpaRepository<Audit, Long> {
 
     @Query("SELECT a FROM Audit a WHERE a.createdBy = ?1")
     List<Audit> findAllByAccountDetailId(String accountDetailId);
-
-    @Query("SELECT a FROM Audit a WHERE a.createdBy = ?1")
-    List<Audit> findAllByAccountDetailId(int accountDetailId);
 }

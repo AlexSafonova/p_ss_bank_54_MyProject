@@ -6,7 +6,6 @@ import com.bank.antifraud.fraudpredictor.CardTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousCardTransferRepository;
 import com.bank.antifraud.util.TransferMock;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +41,7 @@ public class SuspiciousCardTransferService {
 
     @Transactional(readOnly = true)
     public SuspiciousCardTransfer findSuspiciousTransferById(Long id) {
-        Optional <SuspiciousCardTransfer> suspiciousTransfer = suspiciousTransferRepository.findById(id);
+        Optional<SuspiciousCardTransfer> suspiciousTransfer = suspiciousTransferRepository.findById(id);
         if (suspiciousTransfer.isEmpty()) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }
@@ -71,7 +70,7 @@ public class SuspiciousCardTransferService {
 
     @Transactional
     public void deleteSuspiciousTransfer(Long id) {
-        Optional <SuspiciousCardTransfer> suspiciousTransfer = suspiciousTransferRepository.findById(id);
+        Optional<SuspiciousCardTransfer> suspiciousTransfer = suspiciousTransferRepository.findById(id);
         if (suspiciousTransfer.isEmpty()) {
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }

@@ -11,7 +11,15 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: 'prometheus,health'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+      distribution:
+        percentiles-histogram:
+          "[http.server.requests]": true
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/postgres

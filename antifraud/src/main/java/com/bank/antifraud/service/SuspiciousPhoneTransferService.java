@@ -6,7 +6,6 @@ import com.bank.antifraud.fraudpredictor.PhoneTransferFraudPredictor;
 import com.bank.antifraud.repository.SuspiciousPhoneTransferRepository;
 import com.bank.antifraud.util.TransferMock;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +14,7 @@ import java.util.logging.Logger;
 @Service
 @RequiredArgsConstructor
 
-public class SuspiciousPhoneTransferService{
+public class SuspiciousPhoneTransferService {
     private final PhoneTransferFraudPredictor phoneTransferFraudPredictor;
     private final SuspiciousPhoneTransferRepository suspiciousTransferRepository;
 
@@ -74,6 +73,7 @@ public class SuspiciousPhoneTransferService{
             throw new SuspiciousTransferNotFoundException("Suspicious transfer with id " + id + " not found");
         }
         SuspiciousPhoneTransfers suspiciousTransfer = suspiciousTransferRepository.findById(id).orElse(null);
+        assert suspiciousTransfer != null;
         suspiciousTransferRepository.delete(suspiciousTransfer);
         Logger.getGlobal().info("Suspicious transfer with id " + suspiciousTransfer.getId() + " deleted");
     }
