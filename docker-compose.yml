@@ -1,36 +1,13 @@
 version: '3.7'
-
 services:
-  prometheus:
-    image: prom/prometheus:v2.44.0
-    container_name: prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./antifraud/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-  grafana:
-      image: grafana/grafana:9.5.2
-      container_name: grafana
-      ports:
-        - "3000:3000"
-      restart: unless-stopped
-      volumes:
-        - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-  app:
-    build: ./antifraud
-    container_name: my-antifraud-app
-    ports:
-      - "8080:8080"
-    depends_on:
-      - prometheus
-      - grafana
-      - bank-db
+
   # Environment
   bank-db:
     image: postgres
     hostname: bank-db
     ports:
-      - "5433:5432"
+      - 5433:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+
